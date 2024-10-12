@@ -1,68 +1,55 @@
-// Perguntas simuladas
-const perguntas = [
-    "Como você avalia o atendimento da recepção?",
-    "Como você avalia a limpeza das instalações?",
-    "Como você avalia a atenção dos enfermeiros?",
-    "Como você avalia a pontualidade no atendimento?"
+const questions = [
+    'Quanto você gostou do atendimento?',
+    'Quanto você gostou do ambiente?',
+    'Quanto você gostou do tempo de espera?',
+    'Quanto você gostou do profissionalismo da equipe?',
+    'Quanto você gostou da limpeza?',
+    'Quanto você gostou do cardápio?',
+    'Quanto você gostou da estrutura física?',
+    'Quanto você gostou da privacidade?',
+    'Quanto você gostou do estacionamento?',
+    'Quanto você gostou do serviço de internet?'
 ];
 
-// Função para carregar as perguntas dinamicamente
-function carregarPerguntas() {
-    const container = document.getElementById('perguntasContainer');
-    perguntas.forEach((pergunta, index) => {
-        const perguntaDiv = document.createElement('div');
-        perguntaDiv.classList.add('pergunta');
+let currentQuestionIndex = 0;
+const questionLabel = document.getElementById('question-label');
+const nextBtn = document.getElementById('next-btn');
+let selectedRatings = [];
 
-        const label = document.createElement('label');
-        label.innerText = pergunta;
-        perguntaDiv.appendChild(label);
-
-        const escala = document.createElement('div');
-        escala.classList.add('escala');
-
-        // Criar os botões de 0 a 10
-        for (let i = 0; i <= 10; i++) {
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = `pergunta${index}`;
-            radio.value = i;
-            radio.id = `pergunta${index}_${i}`;
-
-            const labelRadio = document.createElement('label');
-            labelRadio.setAttribute('for', radio.id);
-            labelRadio.innerText = i;
-
-            escala.appendChild(radio);
-            escala.appendChild(labelRadio);
-        }
-
-        perguntaDiv.appendChild(escala);
-        container.appendChild(perguntaDiv);
-    });
+// Inicializa a primeira pergunta
+function loadQuestion() {
+    questionLabel.textContent = questions[currentQuestionIndex];
+    nextBtn.disabled = true;  // Desativa o botão até que uma nota seja selecionada
 }
 
-// Validação básica do formulário
-document.getElementById('avaliacaoForm').addEventListener('submit', function(event) {
-    let valid = true;
-    perguntas.forEach((pergunta, index) => {
-        const radios = document.getElementsByName(`pergunta${index}`);
-        let selecionado = false;
+// Adiciona um event listener a todos os botões de nota
+document.querySelectorAll('.rating-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        // Armazena a nota selecionada
+        selectedRatings[currentQuestionIndex] = button.value;
 
-        radios.forEach(radio => {
-            if (radio.checked) selecionado = true;
-        });
+        // Habilita o botão de "Próxima Pergunta"
+        nextBtn.disabled = false;
 
-        if (!selecionado) {
-            valid = false;
-            alert(`Por favor, responda a pergunta: "${pergunta}"`);
-            event.preventDefault();
-        }
+        // Mostra qual nota foi selecionada visualmente (opcional, pode personalizar)
+        document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));
+        button.classList.add('selected');
     });
+});
 
-    if (valid) {
-        alert('O Hospital Regional Alto Vale (HRAV) agradece sua resposta e ela é muito importante para nós, pois nos ajuda a melhorar continuamente nossos serviços.');
+// Função para avançar para a próxima pergunta
+nextBtn.addEventListener('click', () => {
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+        document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));  // Remove seleção da pergunta anterior
+    } else {
+        // Exibe uma mensagem de agradecimento ou redireciona para uma página de conclusão, por exemplo
+        document.getElementById('question-container').innerHTML = "<h2>Obrigado por sua avaliação!</h2>";
+        nextBtn.style.display = 'none';  // Esconde o botão "Próxima Pergunta"
     }
 });
 
-// Carregar perguntas ao iniciar
-window.onload = carregarPerguntas;
+// Carrega a primeira pergunta
+loadQuestion();
