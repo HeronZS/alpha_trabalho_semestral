@@ -1,14 +1,14 @@
 const questions = [
-    'Quanto você gostou do atendimento?',
-    'Quanto você gostou do ambiente?',
-    'Quanto você gostou do tempo de espera?',
+    'Como foi seu atendimento na recepção?',
+    'Como foi seu atendimento pela equipe de enfermagem?',
+    'Como foi o atendimento do seu médico?',
     'Quanto você gostou do profissionalismo da equipe?',
-    'Quanto você gostou da limpeza?',
-    'Quanto você gostou do cardápio?',
-    'Quanto você gostou da estrutura física?',
-    'Quanto você gostou da privacidade?',
-    'Quanto você gostou do estacionamento?',
-    'Quanto você gostou do serviço de internet?'
+    'Qual nota daria para a limpeza e higienização do ambiente?',
+    'Classifique as refeições oferecidas.',
+    'Qual nota daria para as instalações?',
+    'Como avaliaria a sua privacidade?',
+    'O que achou do estacionamento do hospital?',
+    'O que achou do serviço de internet?'
 ];
 
 let currentQuestionIndex = 0;
@@ -31,7 +31,7 @@ document.querySelectorAll('.rating-btn').forEach(button => {
         // Habilita o botão de "Próxima Pergunta"
         nextBtn.disabled = false;
 
-        // Mostra qual nota foi selecionada visualmente (opcional, pode personalizar)
+        // Mostra qual nota foi selecionada visualmente
         document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));
         button.classList.add('selected');
     });
@@ -39,15 +39,30 @@ document.querySelectorAll('.rating-btn').forEach(button => {
 
 // Função para avançar para a próxima pergunta
 nextBtn.addEventListener('click', () => {
-    currentQuestionIndex++;
-
-    if (currentQuestionIndex < questions.length) {
+    // Se ainda houver perguntas, avança
+    if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
         loadQuestion();
         document.querySelectorAll('.rating-btn').forEach(btn => btn.classList.remove('selected'));  // Remove seleção da pergunta anterior
-    } else {
-        // Exibe uma mensagem de agradecimento ou redireciona para uma página de conclusão, por exemplo
-        document.getElementById('question-container').innerHTML = "<h2>Obrigado por sua avaliação!</h2>";
-        nextBtn.style.display = 'none';  // Esconde o botão "Próxima Pergunta"
+    } 
+    // Se for a última pergunta, exibe o campo de feedback
+    else if (currentQuestionIndex === questions.length - 1) {
+        currentQuestionIndex++;
+        document.getElementById('question-container').style.display = 'none';  // Oculta o bloco de perguntas
+        document.getElementById('feedback-container').style.display = 'block'; // Exibe o campo de feedback
+        nextBtn.textContent = 'Enviar';  // Altera o texto do botão para "Enviar"
+    } 
+    // Após o feedback, exibe a mensagem de agradecimento
+    else {
+        const feedback = document.getElementById('feedback').value;
+
+        // Exibe a mensagem de agradecimento
+        document.querySelector('.container').innerHTML = `
+            <img src="/public/img/logo-white.png" alt="Logo do Hospital" class="logo">
+            <h1>Pesquisa de Satisfação</h1>
+            <h2>Obrigado por sua avaliação!</h2>
+            <p class="disclaimer">Sua avaliação espontânea é anônima, nenhuma informação pessoal é solicitada ou armazenada.</p>
+        `;
     }
 });
 

@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="container background">
         <img src="/public/img/logo-white.png" alt="Logo do Hospital" class="logo">
         <h1>Pesquisa de Satisfação</h1>
 
@@ -33,9 +33,15 @@
                     <button type="button" class="btn rating-btn" value="9">9</button>
                     <button type="button" class="btn rating-btn" value="10">10</button>
                 </div>
-            </div>
+           </div>
 
-            <button type="button" id="next-btn" class="submit-btn" disabled>Próxima</button>
+           <div id="feedback-container" style="display: none;">
+            <label for="feedback">Queremos saber a sua opinião!</label>
+            <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="Escreva seu feedback aqui..."></textarea>
+        </div>
+
+         <button type="button" id="next-btn" class="submit-btn" disabled>Próxima</button>
+        
         </form>
 
         <p class="disclaimer">Sua avaliação espontânea é anônima, nenhuma informação pessoal é solicitada ou armazenada.</p>
