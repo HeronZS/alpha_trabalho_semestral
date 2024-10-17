@@ -21,7 +21,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
 }
 
 .background {
@@ -47,9 +47,10 @@ h1 {
 
 label {
     display: block;
-    font-size: 18px;
+    font-size: 22px;
     margin-bottom: 10px;
     color: #333;
+    font-weight: bold;
 }
 
 .rating {
@@ -57,18 +58,19 @@ label {
     justify-content: center;
     gap: 5px;
     margin-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .rating-btn {
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
-    font-size: 16px;
+    font-size: 20px;
     color: white;
     cursor: pointer;
     font-family: "Alata", sans-serif;
+    margin-left: 10px;
 }
 
 .rating-btn:nth-child(1) { background-color: #f44336; }
@@ -83,7 +85,7 @@ label {
 .rating-btn:nth-child(10) { background-color: #388e3c; }
 .rating-btn:nth-child(11) { background-color: #2e7d32; }
 
-/* Cores e brilhos correspondentes */
+
 .rating-btn[value="0"]:hover { background-color: #FF0000; box-shadow: 0 0 10px #FF0000; }
 .rating-btn[value="1"]:hover { background-color: #FF4500; box-shadow: 0 0 10px #FF4500; }
 .rating-btn[value="2"]:hover { background-color: #FF6347; box-shadow: 0 0 10px #FF6347; }
@@ -136,7 +138,6 @@ textarea {
     color: #777;
 }
 
-/* Responsividade para Tablets */
 @media screen and (max-width: 1024px) {
     .container {
         padding: 15px;
@@ -169,7 +170,6 @@ textarea {
     }
 }
 
-/* Ajuste para telas menores (smartphones) */
 @media screen and (max-width: 600px) {
     .container {
         padding: 10px;
